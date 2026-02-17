@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rain Alert</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body { background: #1a332e; display: flex; justify-content: center; align-items: center; height: 100vh; color: white; }
+        .result-card { background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; text-align: center; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); width: 400px; }
+        .rain-icon { font-size: 5rem; margin-bottom: 20px; }
+        .prob-text { font-size: 3rem; font-weight: bold; color: #4caf50; margin: 10px 0; }
+        .guideline { background: rgba(0,0,0,0.2); padding: 15px; border-radius: 10px; font-size: 0.9rem; text-align: left; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="result-card">
+        <div class="rain-icon">🌧️</div>
+        <h2>Rain Likely!</h2>
+        <div class="prob-text">{{ prob }}%</div>
+        <p>There is a significant chance of rain.</p>
+        
+        <div class="guideline">
+            <strong>Farmer Advice:</strong>
+            <p>• Cover harvested crops immediately.<br>• Avoid pesticide spraying today.</p>
+        </div>
+        <br>
+        <a href="/" style="color: #4caf50; text-decoration: none;"> Back to Dashboard</a>
+    </div>
+</body>
+</html>

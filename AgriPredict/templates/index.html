@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AgriPredict Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="logo">🌾 AgriPredict</div>
+            
+            <div class="section">
+                <h3 style="color: #95d5b2;">📍 One-Click Weather</h3>
+                <form action="/predict" method="POST">
+                    <input type="text" name="city" placeholder="Enter City Name" required>
+                    <button type="submit" class="btn-location">Fetch & Predict</button>
+                </form>
+            </div>
+
+            <div class="divider"><span>OR MANUAL</span></div>
+
+            <div class="section">
+                <form action="/predict" method="POST">
+                    <input type="number" step="0.01" name="pressure" placeholder="Pressure" required>
+                    <input type="number" step="0.01" name="temparature" placeholder="Temperature" required>
+                    <input type="number" step="0.01" name="humidity" placeholder="Humidity" required>
+                    <input type="number" step="0.01" name="windspeed" placeholder="Wind Speed" required>
+                    <input type="hidden" name="maxtemp" value="30">
+                    <input type="hidden" name="mintemp" value="20">
+                    <button type="submit" class="btn-main">Generate Insight</button>
+                </form>
+            </div>
+            <div class="accuracy-badge">Model Reliability: {{ accuracy }}%</div>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <h1>Farming Rainfall Dashboard</h1>
+                <p>Scroll down to view detailed weather analysis and historical records.</p>
+            </header>
+
+            <div class="visual-grid">
+                <div class="card">
+                    <h3>Rainy vs. Sunny Days</h3>
+                    <img src="{{ url_for('static', filename='images/rainfall_count.png') }}">
+                </div>
+                <div class="card">
+                    <h3>Humidity Levels</h3>
+                    <img src="{{ url_for('static', filename='images/humidity_avg.png') }}">
+                </div>
+                <div class="card">
+                    <h3>Temperature Trends</h3>
+                    <img src="{{ url_for('static', filename='images/temp_range.png') }}">
+                </div>
+                
+                <div class="card full-width">
+                    <h3>Recent Historical Data</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>{% for col in colnames[:8] %}<th>{{ col }}</th>{% endfor %}</tr>
+                            </thead>
+                            <tbody>
+                                {% for row in records %}
+                                <tr>{% for col in colnames[:8] %}<td>{{ row[col] }}</td>{% endfor %}</tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
